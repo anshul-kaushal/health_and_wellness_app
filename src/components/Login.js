@@ -7,18 +7,36 @@ import {
     Pressable
   } from 'react-native';
 import { useState } from 'react';
+import '@expo/match-media'
+import { useMediaQuery } from "react-responsive";
 
 const Login = () => {
     const [userName, userNameChange] = useState('');
     const [password, passwordChange] = useState('');
+    const [isWide, isWideChange] = useState(false);
+
+    // media queries
+    const isSmallerTablet = useMediaQuery({
+        query: '(min-device-width: 480px)'
+      })
+    const isTablet = useMediaQuery({
+        query: '(min-device-width: 600px)'
+      })
 
     const OnLogin = () => {
         console.log(`Username is ${userName}`);
         console.log(`Password is ${password}`);
     }
 
+    const HandleLoginLayout = ({nativeEvent}) => {
+        console.log('in function')
+        const {width} = nativeEvent.layout;
+        isWideChange((width > 600));
+    }
+
     return (
-        <View style={styles.loginContainer}>
+        <View onLayout={HandleLoginLayout} style={[styles.loginContainer, isSmallerTablet && styles.midWidth, 
+        isTablet && styles.largeWidth]}>
             <View style={styles.userNameContainer}>
                 <Text style={styles.text}>UserName</Text>
                 <TextInput
@@ -57,7 +75,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        width: '25%',
+        width: '75%'
       },
     inputs: {
         borderWidth: 1,
@@ -104,6 +122,12 @@ const styles = StyleSheet.create({
         flex: 1,
         width: '100%',
         marginBottom: 20
+    },
+    midWidth: {
+        width: '50%'
+    },
+    largeWidth: {
+       width: '25%'
     }
 });
 
