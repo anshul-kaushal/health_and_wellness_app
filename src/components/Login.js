@@ -13,7 +13,6 @@ import { useMediaQuery } from "react-responsive";
 const Login = () => {
     const [userName, userNameChange] = useState('');
     const [password, passwordChange] = useState('');
-    const [isWide, isWideChange] = useState(false);
 
     // media queries
     const isSmallerTablet = useMediaQuery({
@@ -28,14 +27,8 @@ const Login = () => {
         console.log(`Password is ${password}`);
     }
 
-    const HandleLoginLayout = ({nativeEvent}) => {
-        console.log('in function')
-        const {width} = nativeEvent.layout;
-        isWideChange((width > 600));
-    }
-
     return (
-        <View onLayout={HandleLoginLayout} style={[styles.loginContainer, isSmallerTablet && styles.midWidth, 
+        <View style={[styles.loginContainer, isSmallerTablet && styles.midWidth, 
         isTablet && styles.largeWidth]}>
             <View style={styles.userNameContainer}>
                 <Text style={styles.text}>UserName</Text>
