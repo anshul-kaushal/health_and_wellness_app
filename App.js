@@ -6,17 +6,34 @@ import {
   View
 } from 'react-native';
 import Login from './src/components/Login';
-
+import '@expo/match-media'
+import { useMediaQuery } from "react-responsive";
 
 const App = () => {
-  // const [number, setNumber] = useState(0);
+  const mediaQueries = {
+    isPhone: useMediaQuery({
+        query: '(min-device-width: 320px)'
+    }),
+    isSmallTablet: useMediaQuery({
+        query: '(min-device-width: 480px)'
+    }),
+    isTablet: useMediaQuery({
+        query: '(min-device-width: 600px)'
+    }),
+    isLaptop: useMediaQuery({
+        query: '(min-device-width: 801px)'
+    }),
+    isDesktop: useMediaQuery({
+        query: '(min-device-width: 1025px)'
+    }),
+    isLargeDesktop: useMediaQuery({
+        query: '(min-device-width: 1281px)'
+    })
+  }
 
-  // function handlePress() {
-  //   setNumber(parseInt(Math.random() * 10000, 10) % 100);
-  // }
   return (
     <View style={styles.container}>
-      <Login></Login>
+      <Login mediaQueries={mediaQueries}></Login>
     </View>
   );
 }

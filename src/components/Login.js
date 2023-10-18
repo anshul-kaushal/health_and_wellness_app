@@ -7,20 +7,10 @@ import {
     Pressable
   } from 'react-native';
 import { useState } from 'react';
-import '@expo/match-media'
-import { useMediaQuery } from "react-responsive";
 
-const Login = () => {
+const Login = (props) => {
     const [userName, userNameChange] = useState('');
     const [password, passwordChange] = useState('');
-
-    // media queries
-    const isSmallerTablet = useMediaQuery({
-        query: '(min-device-width: 480px)'
-      })
-    const isTablet = useMediaQuery({
-        query: '(min-device-width: 600px)'
-      })
 
     const OnLogin = () => {
         console.log(`Username is ${userName}`);
@@ -28,10 +18,10 @@ const Login = () => {
     }
 
     return (
-        <View style={[styles.loginContainer, isSmallerTablet && styles.midWidth, 
-        isTablet && styles.largeWidth]}>
+        <View style={[styles.loginContainer, props.mediaQueries.isSmallTablet && styles.midWidth, 
+        props.mediaQueries.isTablet && styles.largeWidth]}>
             <View style={styles.userNameContainer}>
-                <Text style={styles.text}>UserName</Text>
+                <Text style={styles.text}>User Name</Text>
                 <TextInput
                 style={styles.inputs}
                 onChangeText={userNameChange}
